@@ -68,12 +68,17 @@ class GUI:
         self.exposition = Exposition()
         self.root = root
         self.root.title("Выставка экспонатов")
+        self.root.geometry('%dx%d+%d+%d' % (1585, 900, 150, 50))
         self.setup_ui()
         self.filename = ""
 
     def setup_ui(self):
+
         self.load_button = tk.Button(self.root, text="Загрузить файл", command=self.load_file)
         self.load_button.pack(pady=10)
+
+        self.add_button = tk.Button(self.root, text="Добавить экспонат", command=self.add_item_dialog)
+        self.add_button.pack(pady=10)
 
         self.segment_cat_button = tk.Button(self.root, text="Сегментировать по категориям", command=self.segment_by_category)
         self.segment_cat_button.pack(pady=10)
@@ -81,14 +86,13 @@ class GUI:
         self.segment_firm_button = tk.Button(self.root, text="Сегментировать по фирмам", command=self.segment_by_firm)
         self.segment_firm_button.pack(pady=10)
 
-        self.table = ttk.Treeview(self.root, columns=('name', 'category', 'firm'), show='headings')
+
+        self.table = ttk.Treeview(self.root, columns=('name', 'category', 'firm'), show='headings', height=30)
         self.table.heading('name', text='Название')
         self.table.heading('category', text='Категория')
         self.table.heading('firm', text='Фирма')
-        self.table.pack(pady=10)
+        self.table.pack(expand=1, fill='x')
 
-        self.add_button = tk.Button(self.root, text="Добавить экспонат", command=self.add_item_dialog)
-        self.add_button.pack(pady=10)
 
     def load_file(self):
         file_path = filedialog.askopenfilename()
