@@ -131,7 +131,7 @@ class GUI:
     def show_pie_chart(self, data, title):
         labels = data.keys()
         sizes = [len(v) for v in data.values()]
-        plt.figure(figsize=(6, 6))
+        plt.figure(figsize=(9, 6))
         plt.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=140)
         plt.title(title)
         plt.show()
