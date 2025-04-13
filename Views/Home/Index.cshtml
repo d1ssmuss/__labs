@@ -1,0 +1,68 @@
+﻿@model CalcModel 
+@{
+    ViewBag.Title = "Калькулятор";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Title {
+Простой Калькулятор (секция Title)
+}
+  
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+    
+        <div>
+            @Html.LabelFor(m => m.firstNum, "Число 1")
+        @Html.TextBoxFor( m => m.firstNum)
+        @if (ViewContext.ViewData.ModelState.ContainsKey("compareNum"))
+        {
+            @Html.ValidationMessageFor(m => m.firstNum, "", new { @class = "ErrorMessege" })
+        }
+        </div>
+        <div>
+            @Html.LabelFor(m => m.operation, "Операция")
+            @Html.ListBoxFor(
+                             m => m.operation,
+                             new MultiSelectList(new[] { '+', '-', '*', '/' })
+
+                             )
+        </div>
+        <div>
+            @Html.LabelFor(m => m.secondNum, "Число 2")
+            @Html.TextBoxFor(m => m.secondNum)
+        @if (ViewContext.ViewData.ModelState.ContainsKey("compareNum"))
+        {
+            @Html.ValidationMessageFor(m => m.secondNum, "", new { @class = "ErrorMessege" })
+        }
+        </div>
+        <div>
+            @Html.LabelFor(m => m.compareNum, "Введите число для сравнения")
+            @Html.TextBoxFor(m => m.compareNum)
+        </div>
+        <button type="submit" name = "action" value ="submit">Вычислить</button>
+        <button type="submit" name="action" value ="reset">очистить поле</button>
+
+   
+
+    }
+
+ @section CompareModul
+ {
+    @if (ViewBag.result != null)
+    {
+        <h3>Результат: @ViewBag.result</h3>
+        @if (ViewBag.result == ViewBag.compare)
+        {
+            <p style="color: green;">УРА!!! @ViewBag.result равен @ViewBag.compare</p>
+        }
+        else
+        {
+            <p style="color: red;">БЛИН!!! @ViewBag.result не равен @ViewBag.compare</p>
+        }
+
+     <div> @Html.ActionLink("Дублер страница", "Dubler", new { FrNum = ViewBag.FrNum, SecNum = ViewBag.SecNum ,oper = ViewBag.oper, res = ViewBag.result}, null)  </div>
+
+    }
+ }
+
+
+
